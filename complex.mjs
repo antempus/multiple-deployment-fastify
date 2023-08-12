@@ -23,6 +23,9 @@ app.register(async instance => {
     instance.decorate('passThrough', async function (request, reply) {
         instance.log.info(`passing through ${request.url}`)
     })
+        .decorate('reject', function (request, reply, done) {
+            done(`rejecting ${request.url}`)
+        })
         // sets up auth plugin
         .register(fastifyAuth)
         // after allows for the previous plugins to be registered before routes are defined
@@ -36,6 +39,15 @@ app.register(async instance => {
                     handler: (_, reply) => {
                         reply.send({ message: `${process.env.TZ}` });
                     },
+                })
+                .route({
+                    method: "GET",
+                    url: "/break",
+                    handler: (_, reply) => {
+                        reply.send({ message: `${process.env.TZ}` });
+                    },
+                    // path specific auth
+                    onRequest: instance.auth([instance.reject])
                 })
         })
 })
