@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "simple": "node simple.mjs",
-    "complex": "node complex.mjs"
-
+    "start": "node server.mjs"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 import fastify from 'fastify'
 import fastifyAuth from '@fastify/auth'
-import services from './src/complex/index.mjs'
+import services from './src/index.mjs'
 
 
 const app = fastify({
@@ -37,14 +37,14 @@ app.register(async instance => {
                     method: "GET",
                     url: "/info",
                     handler: (_, reply) => {
-                        reply.send({ message: `${process.env.TZ}` });
+                        reply.send({ message: "info" });
                     },
                 })
                 .route({
                     method: "GET",
                     url: "/break",
                     handler: (_, reply) => {
-                        reply.send({ message: `${process.env.TZ}` });
+                        reply.send({ message: `not returned` });
                     },
                     // path specific auth
                     onRequest: instance.auth([instance.reject])
